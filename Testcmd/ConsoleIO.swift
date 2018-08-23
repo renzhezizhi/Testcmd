@@ -17,9 +17,11 @@ class ConsoleIO {
     func writeMessage(_ message: String, to: OutputType = .standard) {
         switch to {
         case .standard:
-            print("\(message)")
+            // The sequence \u{001B}[;m is used in the standard case to reset the terminal's (not xcode console) text color back to the default
+            print("\u{001B}[;m\(message)")
         case .error:
-            fputs("Error: \(message)\n", stderr)
+            // The sequence \u{001B}[;31m are control characters that cause Termianl to change the color of the following text strings to red
+            fputs("\u{001B}[;31m\(message)\n", stderr)
         }
     }
     
